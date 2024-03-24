@@ -1,0 +1,74 @@
+<form #newForm="ngForm" (ngSubmit)=" newForm.submitted && onSubmit()">
+  <!-- Level 1 -->
+  <div *ngIf="level == 1">
+    <div>
+      <label for="firstname">Firstname</label>
+      <input type="text" name="firstname" [(ngModel)]="obj.firstname" #firstname="ngModel" required>
+      <div *ngIf="firstname.invalid && (firstname.touched || newForm.submitted)">
+        <div *ngIf="firstname.errors && firstname.errors['required']">
+          Firstname is required.
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="lastname">Lastname</label>
+      <input type="text" name="lastname" [(ngModel)]="obj.lastname" #lastname="ngModel" required>
+      <div *ngIf="lastname.invalid && (lastname.touched || newForm.submitted)">
+        <div *ngIf="lastname.errors && lastname.errors['required']">
+          Lastname is required.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Level 2 -->
+  <div *ngIf="level == 2">
+    <label>Number of Wheels:</label><br>
+    <input type="radio" name="numberOfWheels" value="2" [(ngModel)]="obj.numberOfWheels"> 2
+    <input type="radio" name="numberOfWheels" value="4" [(ngModel)]="obj.numberOfWheels"> 4
+  </div>
+
+  <!-- Level 3 -->
+  <div *ngIf="level == 3">
+    <div *ngIf="obj.numberOfWheels == '4'">
+      <label>Type of Vehicle:</label><br>
+      <input type="radio" name="carType" [(ngModel)]="obj.selectedVehicleType" value="hatchback"> Hatchback
+      <input type="radio" name="carType" [(ngModel)]="obj.selectedVehicleType" value="suv"> SUV
+      <input type="radio" name="carType" [(ngModel)]="obj.selectedVehicleType" value="sedan"> Sedan
+    </div>
+    
+    <div *ngIf="obj.numberOfWheels == '2'">
+      <label>Type of Vehicle:</label><br>
+      <input type="radio" name="vehicleType" [(ngModel)]="obj.selectedVehicleType" value="cruiser"> Cruiser
+      <input type="radio" name="vehicleType" [(ngModel)]="obj.selectedVehicleType" value="sports"> Sports
+    </div>
+  </div>
+
+  <!-- Level 4 -->
+  <div *ngIf="level == 4">
+    <label>Specific Model</label><br>
+    <div *ngIf="obj.selectedVehicleType == 'hatchback' ">
+      <input type="radio" name="vehicleType" [(ngModel)]="obj.selectedVehicleType" value="hatchbackcar"> HATCHBACK CAR
+    </div>
+    <div *ngIf="obj.selectedVehicleType == 'suv' ">
+      <input type="radio" name="vehicleType" [(ngModel)]="obj.selectedVehicleType" value="suvcar"> SUV CAR
+    </div>
+    <div *ngIf="obj.selectedVehicleType == 'sedan' ">
+      <input type="radio" name="vehicleType" [(ngModel)]="obj.selectedVehicleType" value="sedancar"> SEDAN CAR
+    </div>
+    <div *ngIf="obj.selectedVehicleType == 'sports' ">
+      <input type="radio" name="vehicleType" [(ngModel)]="obj.selectedVehicleType" value="sportsbike"> SPORTS BIKE
+    </div>
+    <div *ngIf="obj.selectedVehicleType == 'cruiser' ">
+      <input type="radio" name="vehicleType" [(ngModel)]="obj.selectedVehicleType" value="cruiserbike"> CRUISER BIKE
+    </div>
+  </div>
+
+  <div *ngIf="level == 5">
+    <label>Date Range:</label><br>
+    <input type="date" name="startDate" [(ngModel)]="obj.startDate"> -
+    <input type="date" name="endDate" [(ngModel)]="obj.endDate">
+  </div>
+
+  <button type="submit" [disabled]="newForm.invalid">SAVE</button>
+</form>
